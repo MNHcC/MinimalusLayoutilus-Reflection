@@ -2,21 +2,28 @@
 
 namespace MNHcC\MinimalusLayoutilus\Reflection;
 
+use MNHcC\MinimalusLayoutilus\StdLib;
+use MNHcC\MinimalusLayoutilus\StdLib\Helper\AbstractArrayHelper as ArrayHelper;
+
 /**
  * Description of ReflectionClass
  *
  * @author Michael Hegenbarth (carschrotter)
- * @package MNHcC\Reflection
+ * @package MNHcC\MinimalusLayoutilus
+ * @subpackage Reflection
  * @copyright (c) 2013-2017, Michael Hegenbarth
  */
-class ReflectionClass extends \ReflectionClass implements interfaces\MNHcC, interfaces\Instances {
+class ReflectionClass extends \ReflectionClass implements StdLib\MinimalusLayoutilusInterface, StdLib\InstancesInterface {
 
+    use StdLib\MinimalusLayoutilusTrait;
+    use StdLib\NoInstancesTrait;
+    
     public function __construct($argument) {
         /**
          * @todo self keyword on ReflectionClass
          */
         if (\is_string($argument) && $argument == 'self') {
-            $argument = Helper::whereIsSelf();
+            $argument = StdLib\Helper\AbstractHelper::whereIsSelf();
         }
         parent::__construct($argument);
     }
@@ -104,6 +111,12 @@ class ReflectionClass extends \ReflectionClass implements interfaces\MNHcC, inte
         return $result;
     }
 
+    /**
+     * 
+     * @param string $prefix_filter the prefix for filter constants
+     * @param array $constants (obtional) the constants to filtered
+     * @return array the filtered constants
+     */
     public function getPrefixConstants($prefix_filter, $constants = null) {
         $constants = ($constants === null) ? parent::getConstants() : $constants;
         $result = [];

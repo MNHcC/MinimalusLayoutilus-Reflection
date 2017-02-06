@@ -2,11 +2,14 @@
 
 namespace MNHcC\MinimalusLayoutilus\Reflection;
 
+use MNHcC\MinimalusLayoutilus\StdLib;
+
 /**
  * ReflectionObjectMethod is a warpper for methods of objects, 
  * you can call method dynamical from the name (string)
  * @author Michael Hegenbarth (carschrotter)
- * @package MNHcC\Reflection
+ * @package MNHcC\MinimalusLayoutilus
+ * @subpackage Reflection
  * @copyright (c) 2013-2017, Michael Hegenbarth
  */
 class ReflectionStaticMethod extends \ReflectionMethod {

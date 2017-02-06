@@ -1,5 +1,5 @@
 {
-    "name": "mnhcc/minimaluslayoutilus_reflection",
+    "name": "MNHcC/minimaluslayoutilus_reflection",
     "description": "custom reflection for the MNHcC MinimalusLayoutilus framework and projects",
     "require-dev": {
         "phpunit/phpunit": "^6.0",
@@ -12,9 +12,16 @@
             "email": "mnh@mn-hegenbarth.de"
         }
     ],
+    "minimum-stability": "dev",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/MNHcC/MinimalusLayoutilus-stdlib.git"
+        }
+    ],
     "require": {
         "php": "^5.6 || ^7.0",
-        "mnhcc/minimaluslayoutilus_stdlib" : "*"
+        "MNHcC/MinimalusLayoutilus-stdlib" : "*"
     },
     "autoload": {
         "psr-4": {

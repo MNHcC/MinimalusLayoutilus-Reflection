@@ -1,6 +1,6 @@
 <?php
 
-namespace MNHcC\Reflection;
+namespace MNHcC\MinimalusLayoutilus\Reflection;
 
 /**
  * Description of ReflectionClass

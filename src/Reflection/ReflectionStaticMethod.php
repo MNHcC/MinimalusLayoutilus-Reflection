@@ -1,6 +1,6 @@
 <?php
 
-namespace MNHcC\Reflection;
+namespace MNHcC\MinimalusLayoutilus\Reflection;
 
 /**
  * ReflectionObjectMethod is a warpper for methods of objects, 

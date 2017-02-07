@@ -18,8 +18,7 @@ class ReflectionObjectMethodTest extends TestCase {
      * This method is called before a test is executed.
      */
     protected function setUp() {        
-        $testClass = new Test\ExampleClass();
-        $this->object = new ReflectionObjectMethod($testClass, 'foo');
+        $this->object = new ReflectionObjectMethod(new Test\ExampleClass(), 'foo');
     }
 
     /**
@@ -44,10 +43,8 @@ class ReflectionObjectMethodTest extends TestCase {
      * @todo   Implement testInvokeStatic().
      */
     public function testInvokeStatic() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $this->setExpectedException(\ReflectionException::class);
+        $this->assertInstanceOf(\ReflectionException::class, $this->object->invokeStatic());
     }
 
     /**
@@ -55,10 +52,7 @@ class ReflectionObjectMethodTest extends TestCase {
      * @todo   Implement testInvoke().
      */
     public function testInvoke() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $this->assertSame($this->object->invoke(''), 'foo');
     }
 
     /**
@@ -66,10 +60,7 @@ class ReflectionObjectMethodTest extends TestCase {
      * @todo   Implement testSetObject().
      */
     public function testSetObject() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $this->assertTrue($this->object->setObject(new Test\ExampleClass()));
     }
 
 }

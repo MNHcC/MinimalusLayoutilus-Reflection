@@ -3,7 +3,7 @@
 namespace MNHcC\MinimalusLayoutilus\Reflection;
 
 use MNHcC\MinimalusLayoutilus\StdLib;
- 
+
 
 /**
  * ReflectionObjectMethod is a warpper for methods of objects, 
@@ -30,7 +30,7 @@ class ReflectionObjectMethod extends \ReflectionMethod {
      */
     public function __construct($object, $name) {
         if (!is_object($object)) {
-            throw new Exception\InvalidArgumentException('Argument 1 passed to ' . __CLASS__ . '::' . __METHOD__ . ' must be an object , ' . gettype($object) . ' given', -1);
+            throw new Exception\InvalidArgumentException(sprintf('%s expects parameter 1 to be object, %s given', __METHOD__, gettype($object)), -1);
         }
         try {
             parent::__construct($object, $name);

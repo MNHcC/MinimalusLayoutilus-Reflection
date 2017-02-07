@@ -14,6 +14,15 @@ namespace MNHcC\MinimalusLayoutilus\Reflection\Test;
  * @author Michael Hegenbarth <mnh@mn-hegenbarth.de>
  */
 class ExampleClass {
+    
+    const TEST_FOO_APPEL = 'appel';
+    const TEST_FOO_PEAR = 'pear';
+    const TEST_FOO_BANANA = 'banana';
+    
+    const TEST_BAR_CARROT = 'carrot';
+    const TEST_BAR_RADISH = 'radish';
+    const TEST_BAR_CAULIFLOWER = 'cauliflower';
+    
     public function foo($e){
         return 'foo';
     }

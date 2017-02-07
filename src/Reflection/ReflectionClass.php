@@ -2,8 +2,12 @@
 
 namespace MNHcC\MinimalusLayoutilus\Reflection;
 
+use ReflectionMethod;
 use MNHcC\MinimalusLayoutilus\StdLib;
 use MNHcC\MinimalusLayoutilus\StdLib\Helper\AbstractArrayHelper as ArrayHelper;
+use MNHcC\MinimalusLayoutilus\StdLib\Helper\AbstractHelper as Helper;
+use MNHcC\MinimalusLayoutilus\StdLib\BootstrapHandler;
+use MNHcC\MinimalusLayoutilus\StdLib\Bootstrap;
 
 /**
  * Description of ReflectionClass
@@ -18,6 +22,8 @@ class ReflectionClass extends \ReflectionClass implements StdLib\MinimalusLayout
     use StdLib\MinimalusLayoutilusTrait;
     use StdLib\NoInstancesTrait;
     
+    protected $original;
+    
     public function __construct($argument) {
         /**
          * @todo self keyword on ReflectionClass
@@ -25,21 +31,21 @@ class ReflectionClass extends \ReflectionClass implements StdLib\MinimalusLayout
         if (\is_string($argument) && $argument == 'self') {
             $argument = StdLib\Helper\AbstractHelper::whereIsSelf();
         }
+        $this->original = $argument;
         parent::__construct($argument);
     }
 
     /**
-     * replace a CaMeL Case Class 
+     * replace master (last) part of a CamelCase class
      * @param string $class
      * @param string $to_class
      * @param bool $contains_in_namespace
-     * @param bool $namespace_limit
      * @return string the new classname
      */
     public static function replacedMasterClass($class, $to_class, $contains_in_namespace = false) {
-        $namespaces = ArrayHelper::explode(NSS, $class);
+        $namespaces = ArrayHelper::explode('\\', $class);
         $names = \preg_split('/(?<=.)(?=\p{Lu}\P{Lu})|(?<=\P{Lu})(?=\p{Lu})/U', ArrayHelper::pop($namespaces));
-        $namespace = ArrayHelper::implode($namespaces, NSS);
+        $namespace = ArrayHelper::implode($namespaces, '\\');
         $masterClass = ArrayHelper::shift($names);
         if ($contains_in_namespace) {
             if ($namespace != '') {
@@ -47,7 +53,7 @@ class ReflectionClass extends \ReflectionClass implements StdLib\MinimalusLayout
                 $regex->isAutoMask(true);
                 return BootstrapHandler::makeClassName($regex->replace($to_class, $namespace), \ucfirst($to_class) . implode($names));
             } else {
-                return NSS . ucfirst($to_class) . ArrayHelper::implode($names);
+                return '\\' . ucfirst($to_class) . ArrayHelper::implode($names);
             }
         } else {
             return ucfirst($to_class) . implode($names);
@@ -62,9 +68,17 @@ class ReflectionClass extends \ReflectionClass implements StdLib\MinimalusLayout
     public function callStatic($name) {
         $args = func_get_args();
         array_shift($args);
-        $callee = $this->getMethod($name, BootstrapHandler::addRootNamespace('ReflectionStaticMethod'));
+        $callee = $this->getMethod($name, ReflectionStaticMethod::class);
         return $callee->invokeArgs($args);
     }
+    
+    public function call($name) {
+        $args = func_get_args();
+        array_shift($args);
+        $callee = $this->getMethod($name, ReflectionObjectMethod::class);
+        return $callee->invokeArgs($args);
+    }
+    
 
     public function getReplacedMasterClass($toClass, $namespace = false) {
         return self::replacedMasterClass($this->getName(), $toClass, $namespace);
@@ -80,8 +94,8 @@ class ReflectionClass extends \ReflectionClass implements StdLib\MinimalusLayout
      */
     public function getMethod($name, $class = null) {
         if ($class !== null) {
-            if (Helper::classExists($class, false, true) && is_subclass_of($class, 'ReflectionMethod')) {
-                return new $class($this->getName(), $name);
+            if (Helper::classExists($class, false, true) && is_subclass_of($class, ReflectionMethod::class)) {
+                return new $class($this->getOriginal(), $name);
             }
         } else {
             return parent::getMethod($name);
@@ -132,4 +146,9 @@ class ReflectionClass extends \ReflectionClass implements StdLib\MinimalusLayout
     public static function ___onLoaded() {
         return null;
     }
+    
+    function getOriginal() {
+        return $this->original;
+    }
+
 }

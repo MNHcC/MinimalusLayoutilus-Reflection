@@ -67,10 +67,8 @@ class ReflectionClassTest extends TestCase {
      * @todo   Implement testGetMethod().
      */
     public function testGetMethod() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $this->assertInstanceOf(\ReflectionMethod::class, $this->object->getMethod('foo'));
+        $this->assertInstanceOf(\ReflectionMethod::class, $this->object->getMethod('bar'));
     }
 
     /**
@@ -78,10 +76,18 @@ class ReflectionClassTest extends TestCase {
      * @todo   Implement testGetConstants().
      */
     public function testGetConstants() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $fwConst = $this->object->getConstants(true);
+        $this->assertEmpty($fwConst);
+        $this->assertCount(0, $fwConst);
+        $allConst = $this->object->getConstants();
+        $this->assertInternalType('array', $allConst);
+        $this->assertCount(6, $allConst);
+        $prefixConst = $this->object->getConstants(false, 'TEST_FOO');
+        $this->assertInternalType('array', $prefixConst);
+        $this->assertCount(3, $prefixConst);
+        $this->assertArrayHasKey('TEST_FOO_APPEL', $prefixConst);
+        $this->assertArrayNotHasKey('TEST_BAR_CARROT', $prefixConst);
+        $this->assertArraySubset(['TEST_FOO_APPEL' => 'appel'], $prefixConst);
     }
 
     /**

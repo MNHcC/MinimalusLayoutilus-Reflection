@@ -9,6 +9,6 @@ before_script:
   
 script: 
   - echo $PWD
-  - cd $PWD
+  - ls test
   - vendor/bin/phpunit --version
   - vendor/bin/phpunit --configuration ./test/phpunit.xml --coverage-text

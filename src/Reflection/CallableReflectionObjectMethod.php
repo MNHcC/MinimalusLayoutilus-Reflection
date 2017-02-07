@@ -13,7 +13,7 @@ use MNHcC\MinimalusLayoutilus\StdLib;
  * @subpackage Reflection
  * @copyright (c) 2013-2017, Michael Hegenbarth
  */
-class CallableReflectionObjectMethod extends \ReflectionMethod {
+class CallableReflectionObjectMethod extends CallableReflectionMethod {
 
     /**
      * is a default value
@@ -21,25 +21,18 @@ class CallableReflectionObjectMethod extends \ReflectionMethod {
      */
     const defaultArg = '{defaultArg : "true", secure : "Ay0keRT1l8"}';
 
-    protected $objectContext;
-    
-    protected $newscope = null;
 
     /**
-     * @param object $object
-     * @param string $name
-     * @throws \Exception
+     * 
+     * {@inheritdoc}
+     * @throws Exception\InvalidArgumentException
+     * @throws Exception\ReflectionMethodException
      */
     public function __construct($object, $name) {
         if (!is_object($object)) {
             throw new Exception\InvalidArgumentException(sprintf('%s expects parameter 1 to be object, %s given', __METHOD__, gettype($object)), -1);
         }
-        try {
-            parent::__construct($object, $name);
-        } catch (\Exception $exc) {
-            throw new Exception\ReflectionMethodException($object, $name, $exc->getCode(), $exc);
-        }
-        $this->objectContext = $object;
+        parent::__construct($object, $name);
     }
 
     /**

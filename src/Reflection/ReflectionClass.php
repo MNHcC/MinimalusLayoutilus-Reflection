@@ -72,13 +72,18 @@ class ReflectionClass extends \ReflectionClass implements StdLib\MinimalusLayout
         return $callee->invokeArgs($args);
     }
     
+    /**
+     * 
+     * @param name of method $name
+     * @return mixed the method result.
+     */
     public function call($name) {
         $args = func_get_args();
         array_shift($args);
         $callee = $this->getMethod($name, CallableReflectionObjectMethod::class);
         return $callee->invokeArgs($args);
     }
-    
+
 
     public function getReplacedMasterClass($toClass, $namespace = false) {
         return self::replacedMasterClass($this->getName(), $toClass, $namespace);

@@ -3,6 +3,7 @@
 namespace MNHcC\MinimalusLayoutilus\Reflection;
 
 use MNHcC\MinimalusLayoutilus\StdLib;
+use MNHcC\MinimalusLayoutilus\StdLib\Helper\AbstractArrayHelper as ArrayHelper;
 
 /**
  * ReflectionObjectMethod is a warpper for methods of objects, 
@@ -12,12 +13,12 @@ use MNHcC\MinimalusLayoutilus\StdLib;
  * @subpackage Reflection
  * @copyright (c) 2013-2017, Michael Hegenbarth
  */
-class CallableReflectionStaticMethod extends \ReflectionMethod {
+class CallableReflectionStaticMethod extends CallableReflectionMethod {
 
     public function __construct($class, $name) {
         parent::__construct($class, $name);
         if (!$this->isStatic()) {
-            throw new Exception('Method is not Static');
+            throw new Exception\InvalidArgumentException('Method is not Static');
         }
     }
 

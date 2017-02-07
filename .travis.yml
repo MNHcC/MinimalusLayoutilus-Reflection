@@ -7,8 +7,5 @@ php: # specify options for your language
 before_script:
   - composer install
   
-script: 
-  - echo $PWD
-  - ls "$PWD/test/phpunit.xml"
-  - vendor/bin/phpunit --version
+script:
   - vendor/bin/phpunit --configuration "$PWD/test/phpunit.xml" --coverage-text

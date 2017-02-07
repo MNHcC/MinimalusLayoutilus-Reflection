@@ -86,7 +86,7 @@ class CallableReflectionObjectMethod extends \ReflectionMethod {
             $args = $object;
             $object = $this->object;
         }
-        parent::invokeArgs($object, $args);
+        return parent::invokeArgs($object, $args);
     }
 
         /**

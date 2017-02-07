@@ -27,3 +27,29 @@ composer require "MNHcC/MinimalusLayoutilus-Reflection:*@dev"
     }
 }
 ```
+##Examples
+```php
+<?php
+
+class ExampleClass {
+    
+    const TEST_FOO_APPEL = 'appel';
+    const TEST_FOO_PEAR = 'pear';
+    const TEST_FOO_BANANA = 'banana';
+    
+    const TEST_BAR_CARROT = 'carrot';
+    const TEST_BAR_RADISH = 'radish';
+    const TEST_BAR_CAULIFLOWER = 'cauliflower';
+    
+    public function foo($e){
+        return 'foo';
+    }
+    static public function bar($e){
+        return 'bar';
+    }
+}
+$reflM = new MNHcC\MinimalusLayoutilus\Reflection\CallableReflectionObjectMethod(new ExampleClass(), 'foo'); 
+$reflM('baz'); //call ExampleClass::foo('baz') and return 'foo'
+$reflM->invoke(1, 2, 3)//call ExampleClass::foo(1, 2, 3) and return 'foo'
+$reflM->invokeArgs([1, 2, 3])//call ExampleClass::foo(1, 2, 3) and return 'foo'
+```

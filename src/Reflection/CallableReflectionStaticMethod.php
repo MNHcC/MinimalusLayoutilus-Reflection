@@ -12,7 +12,7 @@ use MNHcC\MinimalusLayoutilus\StdLib;
  * @subpackage Reflection
  * @copyright (c) 2013-2017, Michael Hegenbarth
  */
-class ReflectionStaticMethod extends \ReflectionMethod {
+class CallableReflectionStaticMethod extends \ReflectionMethod {
 
     public function __construct($class, $name) {
         parent::__construct($class, $name);

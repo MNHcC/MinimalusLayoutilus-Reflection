@@ -68,14 +68,14 @@ class ReflectionClass extends \ReflectionClass implements StdLib\MinimalusLayout
     public function callStatic($name) {
         $args = func_get_args();
         array_shift($args);
-        $callee = $this->getMethod($name, ReflectionStaticMethod::class);
+        $callee = $this->getMethod($name, CallableReflectionStaticMethod::class);
         return $callee->invokeArgs($args);
     }
     
     public function call($name) {
         $args = func_get_args();
         array_shift($args);
-        $callee = $this->getMethod($name, ReflectionObjectMethod::class);
+        $callee = $this->getMethod($name, CallableReflectionObjectMethod::class);
         return $callee->invokeArgs($args);
     }
     

@@ -13,7 +13,7 @@ use MNHcC\MinimalusLayoutilus\StdLib;
  * @subpackage Reflection
  * @copyright (c) 2013-2017, Michael Hegenbarth
  */
-class ReflectionObjectMethod extends \ReflectionMethod {
+class CallableReflectionObjectMethod extends \ReflectionMethod {
 
     /**
      * is a default value
@@ -45,7 +45,7 @@ class ReflectionObjectMethod extends \ReflectionMethod {
      * @return mixed the method result.
      */
     public function __invoke() {
-        return self::invokeArgs($this->object, func_get_args());
+        return $this->invokeArgs($this->object, func_get_args());
     }
 
     /**
@@ -53,8 +53,9 @@ class ReflectionObjectMethod extends \ReflectionMethod {
      * @return mixed the result of method
      */
     public function invokeStatic() {
-        return self::invokeArgs(null, func_get_args());
+        return $this->invokeArgs(null, func_get_args());
     }
+    
 
     /**
      * Invoke a method whit the given array as arguments on the object
@@ -66,10 +67,29 @@ class ReflectionObjectMethod extends \ReflectionMethod {
      * @return mixed the method result.
      */
     public function invoke($parameter = null, $_ = null) {
-        return self::invokeArgs($this->object, func_get_args());
+        return $this->invokeArgs($this->object, func_get_args());
+    }
+    
+    /**
+     * Invoke args
+     * @param object|array $object <p>
+     * The object to invoke the method on. In case of static methods, you can pass
+     * null to this parameter or you can use a Array to use the internal object.
+     * </p>
+     * @param array $args (optional)<p>
+     * The parameters to be passed to the function, as an array.
+     * </p>
+     * @return mixed the method result.
+     */
+    public function invokeArgs($object, array $args = []) {
+        if(is_array($object)) {
+            $args = $object;
+            $object = $this->object;
+        }
+        parent::invokeArgs($object, $args);
     }
 
-    /**
+        /**
      * set another object of the same type.
      * @param object $object
      * @return boolean 

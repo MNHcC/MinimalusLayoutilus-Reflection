@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 class ReflectionObjectMethodTest extends TestCase {
 
     /**
-     * @var ReflectionObjectMethod
+     * @var CallableReflectionObjectMethod
      */
     protected $object;
 
@@ -18,7 +18,7 @@ class ReflectionObjectMethodTest extends TestCase {
      * This method is called before a test is executed.
      */
     protected function setUp() {        
-        $this->object = new ReflectionObjectMethod(new Test\ExampleClass(), 'foo');
+        $this->object = new CallableReflectionObjectMethod(new Test\ExampleClass(), 'foo');
     }
 
     /**

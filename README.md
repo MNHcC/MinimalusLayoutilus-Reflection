@@ -21,7 +21,7 @@ composer require "MNHcC/MinimalusLayoutilus-Reflection:*@dev"
             "type": "vcs",
             "url": "https://github.com/MNHcC/MinimalusLayoutilus-Stdlib.git"
         }
-    }
+    },
     "require": {
         "MNHcC/MinimalusLayoutilus-Reflection": "*@dev"
     }

@@ -8,13 +8,15 @@
 
 namespace MNHcC\MinimalusLayoutilus\Reflection\Exception;
 
-use InvalidArgumentException;
+use MNHcC\MinimalusLayoutilus\StdLib;
+use InvalidArgumentException as BaseInvalidArgumentException;
 
 /**
  * 
  * @todo add description to InvalidArgumentException
  * @author Michael Hegenbarth <mnh@mn-hegenbarth.de>
  */
-class InvalidArgumentException extends InvalidArgumentException implements ExceptionInterface {
-    //put your code here
+class InvalidArgumentException extends BaseInvalidArgumentException implements ExceptionInterface {
+
+    use StdLib\Exception\ExceptionTrait;
 }

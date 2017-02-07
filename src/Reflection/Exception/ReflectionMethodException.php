@@ -3,7 +3,7 @@
 namespace MNHcC\MinimalusLayoutilus\Reflection\Exception {
 
     use MNHcC\MinimalusLayoutilus\StdLib;
-
+    use ReflectionException;
     /**
      * Description of ReflectionMethodException
      * 
@@ -11,7 +11,7 @@ namespace MNHcC\MinimalusLayoutilus\Reflection\Exception {
      * @package MNHcC\MinimalusLayoutilus
      * @subpackage Reflection 
      */
-    class ReflectionMethodException extends \ReflectionException implements ExceptionInterface {
+    class ReflectionMethodException extends ReflectionException implements ExceptionInterface {
 
         use StdLib\Exception\ExceptionTrait;
 

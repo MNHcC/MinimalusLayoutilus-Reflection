@@ -21,7 +21,9 @@ class CallableReflectionObjectMethod extends \ReflectionMethod {
      */
     const defaultArg = '{defaultArg : "true", secure : "Ay0keRT1l8"}';
 
-    protected $object;
+    protected $objectContext;
+    
+    protected $newscope = null;
 
     /**
      * @param object $object
@@ -37,7 +39,7 @@ class CallableReflectionObjectMethod extends \ReflectionMethod {
         } catch (\Exception $exc) {
             throw new Exception\ReflectionMethodException($object, $name, $exc->getCode(), $exc);
         }
-        $this->object = $object;
+        $this->objectContext = $object;
     }
 
     /**
@@ -45,7 +47,7 @@ class CallableReflectionObjectMethod extends \ReflectionMethod {
      * @return mixed the method result.
      */
     public function __invoke() {
-        return $this->invokeArgs($this->object, func_get_args());
+        return $this->invokeArgs($this->objectContext, func_get_args());
     }
 
     /**
@@ -53,7 +55,7 @@ class CallableReflectionObjectMethod extends \ReflectionMethod {
      * @return mixed the result of method
      */
     public function invokeStatic() {
-        return $this->invokeArgs(null, func_get_args());
+        return $this->invokeArgs($this->newscope, func_get_args());
     }
     
 
@@ -67,7 +69,7 @@ class CallableReflectionObjectMethod extends \ReflectionMethod {
      * @return mixed the method result.
      */
     public function invoke($parameter = null, $_ = null) {
-        return $this->invokeArgs($this->object, func_get_args());
+        return $this->invokeArgs($this->objectContext, func_get_args());
     }
     
     /**
@@ -84,24 +86,50 @@ class CallableReflectionObjectMethod extends \ReflectionMethod {
     public function invokeArgs($object, array $args = []) {
         if(is_array($object)) {
             $args = $object;
-            $object = $this->object;
+            $object = $this->objectContext;
+        }
+        if(is_object($object) && method_exists($this, 'getClosure')) {
+            $callback = $this->getClosure($object);
+            if($this->newscope){
+                $callback->bindTo($object, $this->newscope); 
+            }
+            return call_user_func_array($callback, $args);
         }
         return parent::invokeArgs($object, $args);
     }
+    
+    
 
-        /**
+    /**
      * set another object of the same type.
      * @param object $object
-     * @return boolean 
+     * @return boolean
+     * @deprecated pleas use bindTo
      */
     public function setObject($object) {
-        if (is_a($object, $this->class)) {
-            $this->object = $object;
+        trigger_error(sprintf('%s() is DEPRECATED pleas use %s::bindTo() instance', __METHOD__, __CLASS__), E_USER_DEPRECATED);
+        return $this->bindTo($object);
+    }
+    
+    /**
+     * set a new bound object and class scope
+     * @param object $boundObject the object on execute the method
+     * @param string $classScope the class scopt to execute
+     * @return boolean
+     * @throws Exception\InvalidArgumentException
+     */
+    public function bindTo($boundObject, $classScope = null) {
+        $this->newscope = $classScope; 
+        if (is_object($boundObject) && is_a($boundObject, $this->class) ) {
+            $this->objectContext = $boundObject;
             return true;
         } else {
-            //@ToDo implement a exeption
-            return false;
+            throw new Exception\InvalidArgumentException(
+                    sprintf('Object muss from type %s, %s was given', 
+                        $this->class, (is_object($boundObject) ? get_class($boundObject) : gettype($boundObject)))
+                );
         }
     }
-
+    
+    
 }

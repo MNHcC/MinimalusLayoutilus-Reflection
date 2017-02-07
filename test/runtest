@@ -1,18 +1,3 @@
 #!/bin/env php
 <?php
-require_once './bootstrap.php';
-echo `../vendor/phpunit/phpunit/phpunit --colors --bootstrap bootstrap.php --configuration phpunit.xml --log-junit "/tmp/nb-phpunit-log.json"`;
-$fileContents= file_get_contents("/tmp/nb-phpunit-log.json");
-$fileContents = str_replace(array("\n", "\r", "\t"), '', $fileContents);
-$fileContents = trim(str_replace('"', "'", $fileContents));
-$simpleXml = simplexml_load_string($fileContents);
-$simpleXml->children('\\testsuites\\testsuite');
-
-$jsonObj = new stdClass();
-$jsonObj->event = "suiteStart";
-$jsonObj->suite = (string) $simpleXml->testsuite['name'];
-$jsonObj->tests = (string) $simpleXml->testsuite['tests'];
-
-Kint::dump($jsonObj);
-$json = json_encode($jsonObj);
-//file_put_contents("/tmp/nb-phpunit-log.json", $json);
+echo `../vendor/bin/phpunit --colors --bootstrap bootstrap.php --configuration phpunit.xml`;

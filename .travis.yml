@@ -5,19 +5,16 @@ php: # specify options for your language
 - 7.0
 - 7.1
 - 5.5
-- 5.4
 
 matrix:
   allow_failures:
     - php: 5.5
-    - php: 5.4
+    
 install:
-  - curl -s http://getcomposer.org/installer | php
-  - php composer.phar install --dev --no-interaction
+  - php composer.phar install --no-interaction
   
 before_script:
   - mkdir -p build/logs
-  - composer install --dev --no-interaction
  
 script:
   - vendor/bin/phpunit --configuration "$PWD/test/phpunit.xml" --coverage-text

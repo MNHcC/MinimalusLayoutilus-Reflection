@@ -1,6 +1,7 @@
 ### Status
 [![Build Status](https://travis-ci.org/MNHcC/MinimalusLayoutilus-Reflection.svg?branch=master)](https://travis-ci.org/MNHcC/MinimalusLayoutilus-Reflection)
 [![Coverage Status](https://coveralls.io/repos/github/MNHcC/MinimalusLayoutilus-Reflection/badge.svg?branch=master)](https://coveralls.io/github/MNHcC/MinimalusLayoutilus-Reflection?branch=master)
+[![Dependency Status](https://www.versioneye.com/user/projects/589dda42940b230032da58e7/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/589dda42940b230032da58e7)
 #MinimalusLayoutilus Reflection
 a set of custom reflection classes for the MNHcC MinimalusLayoutilus framework and projects or other projects
 ##installation

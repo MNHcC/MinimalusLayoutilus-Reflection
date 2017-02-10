@@ -4,6 +4,7 @@ namespace MNHcC\MinimalusLayoutilus\Reflection\Exception {
 
     use MNHcC\MinimalusLayoutilus\StdLib;
     use ReflectionException;
+
     /**
      * Description of ReflectionMethodException
      * 
@@ -25,11 +26,17 @@ namespace MNHcC\MinimalusLayoutilus\Reflection\Exception {
          * @param int $code
          * @param \Exception|\Throwable $previous
          */
-        public function __construct($method, $class, $code, $previous) {
-            $message = 'No method ' . $method . '() implement in ' . $class;
+        public function __construct($method = '', $class = '', $code = 0, $previous = null) {
+            if (!empty($method) && !is_int($class)) {
+                $message = 'No method ' . $method . '() implement in ' . $class;
+                $this->_methodName = $method;
+                $this->_className = $class;
+            } elseif (is_int($class)) {
+                $previous = $code !== 0 ? $code : $previous;
+                $code = $class;
+                $message = $method;
+            }
             parent::__construct($message, $code, $previous);
-            $this->_methodName = $method;
-            $this->_className = $class;
         }
 
         public function __toString() {

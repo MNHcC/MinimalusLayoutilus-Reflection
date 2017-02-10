@@ -18,6 +18,7 @@ use MNHcC\MinimalusLayoutilus\StdLib\Helper\AbstractArrayHelper as ArrayHelper;
 abstract class CallableReflectionMethod extends ReflectionMethod {
     
     protected $objectContext = null;
+
     protected $newscope = null;
     
     /**

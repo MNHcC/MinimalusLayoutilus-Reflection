@@ -3,17 +3,17 @@
     backupGlobals="false" 
     backupStaticAttributes="false" 
     syntaxCheck="false"
-    bootstrap="./bootstrap.php"
+    bootstrap="./test/bootstrap.php"
     colors="true"
     convertErrorsToExceptions="true"
     convertWarningsToExceptions="true"
     stopOnFailure="false">
     <testsuites>
         <testsuite name="Reflection Tests">
-            <directory suffix=".php">src/Reflection</directory>
+            <directory suffix=".php">test/src/Reflection</directory>
         </testsuite>
     </testsuites>
     <logging>
-        <log type="coverage-clover" target="../build/logs/clover.xml"/>
+        <log type="coverage-clover" target="build/logs/clover.xml"/>
     </logging>
 </phpunit>

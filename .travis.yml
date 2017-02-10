@@ -11,7 +11,7 @@ matrix:
     - php: 5.5
     
 install:
-  - php composer.phar install --no-interaction
+  - composer install --no-interaction
   
 before_script:
   - mkdir -p build/logs

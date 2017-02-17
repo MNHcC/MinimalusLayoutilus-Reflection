@@ -84,7 +84,6 @@ class ReflectionClass extends \ReflectionClass implements StdLib\MinimalusLayout
         return $callee->invokeArgs($args);
     }
 
-
     public function getReplacedMasterClass($toClass, $namespace = false) {
         return self::replacedMasterClass($this->getName(), $toClass, $namespace);
     }

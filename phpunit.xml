@@ -11,7 +11,7 @@
     bootstrap="test/bootstrap.php">
     <testsuites>
         <testsuite name="Reflection Tests">
-            <directory suffix=".php">test/src/Reflection</directory>
+            <directory suffix=".php">test/src/Reflection/**/*</directory>
         </testsuite>
     </testsuites>
     <filter>

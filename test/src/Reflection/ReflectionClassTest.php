@@ -106,34 +106,14 @@ class ReflectionClassTest extends TestCase {
      * @todo   Implement testGetPrefixConstants().
      */
     public function testGetPrefixConstants() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $prefixConst = $this->object->getPrefixConstants('TEST_FOO');
+        $this->assertInternalType('array', $prefixConst);
+        $this->assertCount(3, $prefixConst);
+        $this->assertArrayHasKey('TEST_FOO_APPEL', $prefixConst);
+        $this->assertArrayNotHasKey('TEST_BAR_CARROT', $prefixConst);
+        $this->assertArraySubset(['TEST_FOO_APPEL' => 'appel'], $prefixConst);
     }
-
-    /**
-     * @covers MNHcC\MinimalusLayoutilus\Reflection\ReflectionClass::___onLoaded
-     * @todo   Implement test___onLoaded().
-     */
-    public function test___onLoaded() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers MNHcC\MinimalusLayoutilus\Reflection\ReflectionClass::__toString
-     * @todo   Implement test__toString().
-     */
-    public function test__toString() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
-    }
-
+    
     /**
      * @covers MNHcC\MinimalusLayoutilus\Reflection\ReflectionClass::getClass
      * @todo   Implement testGetClass().
@@ -150,10 +130,8 @@ class ReflectionClassTest extends TestCase {
      * @todo   Implement test__call().
      */
     public function test__call() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $this->expectException(\MNHcC\MinimalusLayoutilus\StdLib\Exception\Exception::class);
+        $this->assertSame($this->object->foo(''), 'foo');
     }
 
     /**
@@ -161,10 +139,8 @@ class ReflectionClassTest extends TestCase {
      * @todo   Implement test__callStatic().
      */
     public function test__callStatic() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $this->expectException(\MNHcC\MinimalusLayoutilus\StdLib\Exception\Exception::class);
+        $this->assertSame(ReflectionClass::foo(''), 'foo');
     }
 
     /**
